@@ -1,0 +1,29 @@
+spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.hibernate.show-sql: true
+spring.datasource.url: jdbc:postgresql://localhost:5432/postgres?currentSchema=scheduler
+spring.datasource.username: postgres
+spring.datasource.password: 
+spring.datasource.driverClassName: org.postgresql.Driver
+#spring.jpa.properties.hibernate.default_schema: scheduler
+
+server:
+  servlet:
+    context-path: /dynamicscheduler      
+    
+org.quartz.scheduler.instanceName: springBootQuartzApp
+org.quartz.scheduler.instanceId: AUTO
+org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+org.quartz.jobStore.misfireThreshold: 60000
+org.quartz.jobStore.tablePrefix: qrtz_
+org.quartz.jobStore.isClustered: false
+org.quartz.plugin.shutdownHook.class: org.quartz.plugins.management.ShutdownHookPlugin
+org.quartz.plugin.shutdownHook.cleanShutdown: TRUE
+org.quartz.jobStore.class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+
+#org.quartz.jobStore.useProperties: true
+#org.quartz.scheduler.dsName: scheduler
+#spring.quartz.properties.org.quartz.jobStore.dataSource: postgres
+#spring.quartz.jdbc.dataSource: always
+#org.quartz.threadPool.threadCount: 5
+#org.quartz.jobStore.class: org.quartz.impl.jdbcjobstore.JobStoreTX
