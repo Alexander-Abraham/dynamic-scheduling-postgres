@@ -11,15 +11,22 @@ server:
   servlet:
     context-path: /dynamicscheduler      
     
-org.quartz.scheduler.instanceName: springBootQuartzApp
+org.quartz.scheduler.instanceName: MyClusteredScheduler
 org.quartz.scheduler.instanceId: AUTO
 org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
 org.quartz.jobStore.misfireThreshold: 60000
 org.quartz.jobStore.tablePrefix: qrtz_
-org.quartz.jobStore.isClustered: false
+#org.quartz.jobStore.isClustered: false
 org.quartz.plugin.shutdownHook.class: org.quartz.plugins.management.ShutdownHookPlugin
 org.quartz.plugin.shutdownHook.cleanShutdown: TRUE
 org.quartz.jobStore.class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+
+#Added for clustering.. Comment below 2 props to disable clustering
+org.quartz.jobStore.isClustered: true
+org.quartz.jobStore.clusterCheckinInterval: 20000
+
+
+#Used LocalDataSourceJobStore because of a change made in spring (https://github.com/spring-projects/spring-boot/issues/28758). So JobStoreTX and CMT cant be used...
 
 #org.quartz.jobStore.useProperties: true
 #org.quartz.scheduler.dsName: scheduler
